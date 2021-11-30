@@ -93,7 +93,7 @@ There are three suggested methods, `SWAP`, `SHRINK`, and `GROWTH`  in [3]. we wi
 
 ### 7. Generational selection strategy.
 
-
+`Elitism`
 
 ## 4. How to run your project.
 
