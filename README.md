@@ -22,7 +22,7 @@ Each class has different characteristics in terms of quality and performance. **
 
 ## 3. Design decision explaining why you select:
 
-This design is baed on the paper [3].
+This design is based on the paper [3].
 
 ### 0. Chromosome Represetation
 
@@ -50,7 +50,7 @@ Abbreviations: *Microservice(ms)*, *Container(cont)*, *Physical Machine(pm)*
 
 The chromosome represetation of the above example is the following:
 
-| microservice id | container id |
+| microservice id | Physical Machine id |
 | - | - |
 | ms1 | {3, 1} |
 | ms2 | {3} |
@@ -64,17 +64,20 @@ The chromosome represetation of the above example is the following:
 The initial population is `200` based on some tutorials in other related libraries and applications, but it can be adjusted.
 
 **Parameters for genetic algorithm**
+
 * *POPULATION_SIZE=200*
 * *CROSSOVER_SIZE=POPULATION_SIZE/2*
 * *MUTATION_SIZE=POPULATION_SIZE/10*
 
 **Parameters for element**
+
 * *MAX_LENGTH_APPLICATIONS=5*
 * *MAX_LENGTH_PHYSICAL_MACHINE=30*
 * *MAX_LENGTH_MICROSERVICES=50*
 * *MAX_LENGTH_CONTAINER=20*
 
 **Parameters for stopping criteria**
+
 * *STOP_MAX_INTERVAL_SOLUTIONS=10*
 * *STOP_MAX_GENERATION=300*
 * *STOP_THRESHOLD={NOT-DETERMINED}*
