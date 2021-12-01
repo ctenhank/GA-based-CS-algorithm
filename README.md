@@ -59,25 +59,46 @@ The chromosome represetation of the above example is the following:
 | ms5 | {1} |
 | ms6 | {1,2,3} |
 
-
-
 ### 1. Parameters such as the size of an initial population.
 
-The initial population is `100` based on some tutorials in other related libraries and applications, but it can be adjusted.
+The initial population is `200` based on some tutorials in other related libraries and applications, but it can be adjusted.
+
+**Parameters for genetic algorithm**
+* *POPULATION_SIZE=200*
+* *CROSSOVER_SIZE=POPULATION_SIZE/2*
+* *MUTATION_SIZE=POPULATION_SIZE/10*
+
+**Parameters for element**
+* *MAX_LENGTH_APPLICATIONS=5*
+* *MAX_LENGTH_PHYSICAL_MACHINE=30*
+* *MAX_LENGTH_MICROSERVICES=50*
+* *MAX_LENGTH_CONTAINER=20*
+
+**Parameters for stopping criteria**
+* *STOP_MAX_INTERVAL_SOLUTIONS=10*
+* *STOP_MAX_GENERATION=300*
+* *STOP_THRESHOLD={NOT-DETERMINED}*
+
 
 ### 2. Stopping criteria.
 
-We will stop this GA(Genetic Algorithm) when a fitness is larger than a given threshold.
+We will stop this GA(Genetic Algorithm) when a fitness is larger than a given threshold. There are three options as following:
 
-- *The criteria can be added for handling some errors and infinte loops.*
+1. The maximum interval of solutions, which is no change in the given value as the parameter `STOP_MAX_INTERVAL_SOLUTIONS`(default: 10)
+2. The fixed number of generations as the parameter `STOP_MAX_GENERATION`(default: 300)
+3. The fitness value exceeds a given threshold as the parameter `STOP_THRESHOLD`(default: *{NOT YET}*)
+
+*The criteria can be added for handling some errors and infinte loops.*
 
 ### 3. Fitness function.
 
 The fitness values is the total cost for allocating the micro-services and containers. It should be minimized.
 
+
+
 ### 4. Selection operator.
 
-`tournament selection`.
+`Tournament Selection`.
 
 ### 5. Crossover operator.
 
@@ -109,12 +130,23 @@ There are basic parameters such as the following, other parameters can be added 
 * *MUTATION_SIZE*
 * *CROSSOVER_SIZE*
 * *THRESHOLD*
+* *MAX_INTERVAL_SOLUTIONS*
 
 As default, it will be assigned as global variables.
 
 ```Bash
 TODO: How to configure these will be added the next week.
 ```
+
+## Point-out
+
+* No specific value in the parameter, stopping criteria.
+* No specific fiteness values
+    * Equations
+    * Metrics
+* More clear explainataion
+* Can we merge ms and cont just as ms?
+
 
 ## Reference
 [1] Casalicchio, Emiliano. "Container orchestration: A survey." Systems Modeling: Methodologies and Tools (2019): 221-235.  
