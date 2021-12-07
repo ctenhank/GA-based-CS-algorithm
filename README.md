@@ -26,8 +26,34 @@ This design is based on the paper [3].
 
 ### 0. Chromosome Represetation
 
-There are five elements in this problem *(you can refer the attributes for each element)* [3]. 
-* *Application*, *Microservice(ms)*, *Container(cont)*, *Physical Machine(pm)*, *Network*
+There are five elements in this problem *(you can refer the attributes for each element)*[3].  
+*The string in brackets means an abbreviation of the full string.* 
+
+* Application($app_j$): Each $app_j$ consists of the stack of micro-services in the cloud architecture. 
+    * User Request($ureq_j$): User Request
+
+* Micro-service($ms_i$): A series of micro-services($ms_i$) constitute an application, each of which performs a function.
+    * $(ms_{i'}, ms_i)_{prod/cons}$: An application consists of the stack of microservices that means the interoperability of the microservices. It can be modeled as a directed graph.
+    * Micro-service Request($msreq_i$): Required ms-request to meet on an $ureq_j$ of one *app*
+    * Resource($res_i$): Required computational resources to process one $msreq_i$
+    * Threshold($thr_i$): Threshold level for the consumption of resources. if it's above $thr_i$, the service performance will be downgraded and ms will produce a bottlement for the $app_j$
+    * Failure($fail_i$): Failure rate of the $ms_i$
+    * Scale($scale_i$): The scale level of ms mean that the number of containers to execute this $ms_i$.
+    
+    
+* Container($cont_k$): one or more containers $cont_k$ are encapsulated and executed for each ms($ms_i$)
+    * Type: The $ms_i$ type of container, represented as $ms_i \equiv cont_k$
+    * Resource($res_k$): The computational resources consumption of the container $res_k$, calculated as $\frac {ureq_j \times msreq_i \times res_i}{scale_i}$
+
+* Physical Machine($pm_l$): executes a set of containers
+    * $alloc(ms_i/cont_k) = pm_l$: Container $cont_k$ is allocated to the $pm_l$
+    * Capability($cap_l$) : The computational capability
+    * Failure($fail_l$) : Failure rate of the $pm_l$
+    
+
+* Network
+    * $dist_{pm_l, pm_{l'}}$ : The paths between nodes $pm_l$, $pm_{l'}$
+
 
 **Example**
 
@@ -71,9 +97,9 @@ The initial population is `200` based on some tutorials in other related librari
 
 **Parameters for element**
 
-* *MAX_LENGTH_APPLICATIONS=5*
-* *MAX_LENGTH_PHYSICAL_MACHINE=30*
-* *MAX_LENGTH_MICROSERVICES=50*
+* *MAX_LENGTH_APPLICATIONS=1*
+* *MAX_LENGTH_PHYSICAL_MACHINE=300*
+* *MAX_LENGTH_MICROSERVICES=14*
 * *MAX_LENGTH_CONTAINER=20*
 
 **Parameters for stopping criteria**
@@ -97,6 +123,24 @@ We will stop this GA(Genetic Algorithm) when a fitness is larger than a given th
 
 The fitness values is the total cost for allocating the micro-services and containers. It should be minimized.
 
+***Determine***
+
+$scale_i = |\{cont_k\}|\ cont_k \equiv ms_i\ and\ alloc(ms_i),\ \forall_{ms_i} $ 
+
+***by minimizing***
+
+1. **Theshold Distance** = $\sum_{\forall_{ms_i}}|\frac{msreq_i\times res_i}{scale_i} - thr_i|$
+2. **Balanced Cluster Usage** = $\sigma(PM_{usage}^{pm_l},\ if\ \exists ms_i\ |\ alloc(ms_i) = pm_l)$
+    * $PM_{usage}^{pm_l}=\frac{\sum_{ms_i}res_k}{cap_l}, \forall{ms_i}\ |\ alloc(ms_i)=pm_l$
+    * $res_k=\frac {ureq_j \times msreq_i \times res_i}{scale_i}$
+3. **System Failure** = $\displaystyle\sum_{\forall{ms_i}}Service\ Failure(ms_i)$
+    * $Service\ Failure(ms_i)=\displaystyle\prod_{\forall pm_l | alloc(ms_i)=pm_l}(fail_l +\displaystyle\prod_{\forall pm_l | alloc(ms_i)=pm_l}fail_i)$
+4. **Total Network Distance** = $\displaystyle\sum_{\forall{ms_i}}Service\ Mean\ Distance(ms_i)$
+    * $Service\ Mean\ Distance(ms_i) = \frac{\sum_{\forall{cont_k|cont_k\equiv ms_i}}(\sum_{\forall {cont_{k'}\equiv ms_{i'}|(ms_i, ms_{i'})_{prov/cons}}}dist_{pm_l,pm_{l'}})}{|cont_k|\times|cont_{k'}|}$
+
+***Subject to***
+
+$\displaystyle\sum_{\forall{cont_k}|alloc(cont_k)=pm_l}res_k<cap_l, \ \forall pm_l$
 
 
 ### 4. Selection operator.
