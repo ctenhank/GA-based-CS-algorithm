@@ -40,7 +40,6 @@ There are five elements in this problem *(you can refer the attributes for each 
     * Failure($fail_i$): Failure rate of the $ms_i$
     * Scale($scale_i$): The scale level of ms mean that the number of containers to execute this $ms_i$.
     
-    
 * Container($cont_k$): one or more containers $cont_k$ are encapsulated and executed for each ms($ms_i$)
     * Type: The $ms_i$ type of container, represented as $ms_i \equiv cont_k$
     * Resource($res_k$): The computational resources consumption of the container $res_k$, calculated as $\frac {ureq_j \times msreq_i \times res_i}{scale_i}$
@@ -50,7 +49,6 @@ There are five elements in this problem *(you can refer the attributes for each 
     * Capability($cap_l$) : The computational capability
     * Failure($fail_l$) : Failure rate of the $pm_l$
     
-
 * Network
     * $dist_{pm_l, pm_{l'}}$ : The paths between nodes $pm_l$, $pm_{l'}$
 
@@ -142,6 +140,8 @@ $scale_i = |\{cont_k\}|\ cont_k \equiv ms_i\ and\ alloc(ms_i),\ \forall_{ms_i} $
 
 $\displaystyle\sum_{\forall{cont_k}|alloc(cont_k)=pm_l}res_k<cap_l, \ \forall pm_l$
 
+*This image is for unsupporting inline latex*
+![Optimisation-Objective](./resources/image/optimization_objective.png)
 
 ### 4. Selection operator.
 
@@ -151,7 +151,7 @@ $\displaystyle\sum_{\forall{cont_k}|alloc(cont_k)=pm_l}res_k<cap_l, \ \forall pm
 
 The crossover operator is quite simple method, `single-point crossover` operator. Parent can make two children at given single index.
 
-![Single-point_Crossover](./resources/image/single-point_crossover.png)
+##### ![Single-point_Crossover](./resources/image/single-point_crossover.png)
 
 ### 6. Mutation operator.
 
