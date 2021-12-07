@@ -15,7 +15,6 @@ The container scheduling algorithms can be classified as the followings:
 
 Each class has different characteristics in terms of quality and performance. ***The container scheduling is a NP-complete problem, so it's the most widely used method to solve optimisation problems using `meta-heuristic` approaches***. The mathematical modeling techniques model the scheduling using Integer Linear Programming formulation, but it's limited for small size problems due to the complexity of computation. And, Machine Learning algorithms are successful because of big data to train the model. But, these algorithms has not been explored fully for container scheduling.
 
-
 ## 2. What is the topic?
 
 ***Container Scheduling*** which allocate tasks in distributed system as containers.
@@ -29,8 +28,11 @@ This design is based on the paper [3].
 There are five elements in this problem *(you can refer the attributes for each element)*[3].  
 *The string in brackets means an abbreviation of the full string.* 
 
-*It's represented as an image due to unsupporting inline latex in Github. You can check the original text in `backup/README.md.bk` directory.*
+*It's represented as an image due to unsupporting inline latex in Github. You can check the original text in `backup/README.md.bk` directory and get more clear image when you left-click this image.* 
+
 ![Elements](./resources/image/elements.png)
+
+We need to set some fixed applications and corresponding micro-services. 
 
 **Example**
 
@@ -64,13 +66,18 @@ The chromosome represetation of the above example is the following:
 
 ### 1. Parameters such as the size of an initial population.
 
-The initial population is `200` based on some tutorials in other related libraries and applications, but it can be adjusted.
+There are two type parameters: `basic parameters`, `application-specific parameters`. The `basic parameters` are genetic-algorithm parameters such as the size of population, crossover, mutation and the thresholds to finish the program. 
 
-**Parameters for genetic algorithm**
+**TO BE CONTINUED FROM HERE.**
+
+**Basic Parameters**
 
 * *POPULATION_SIZE=200*
 * *CROSSOVER_SIZE=POPULATION_SIZE/2*
 * *MUTATION_SIZE=POPULATION_SIZE/10*
+
+**Application-Specific Parameters**
+
 
 **Parameters for element**
 
@@ -98,12 +105,12 @@ We will stop this GA(Genetic Algorithm) when a fitness is larger than a given th
 
 ### 3. Fitness function.
 
-*It's represented as an image due to unsupporting inline latex in Github. You can check the original text in `backup/README.md.bk` directory.*
-![Optimisation-Objective](./resources/image/optimization_objective.png)
+*It's represented as an image due to unsupporting inline latex in Github. You can check the original text in `backup/README.md.bk` directory and get more clear image when you left-click this image.*
+![Optimisation-Objective](./resources/image/fitness.png)
 
 ### 4. Selection operator.
 
-`Tournament Selection`.
+`Fitness Proportional Selection`.
 
 ### 5. Crossover operator.
 
@@ -113,9 +120,9 @@ The crossover operator is quite simple method, `single-point crossover` operator
 
 ### 6. Mutation operator.
 
-There are three suggested methods, `SWAP`, `SHRINK`, and `GROWTH`  in [3]. we wil use the `SWAP` mutation which shuffles the array poistions of the microservice array. 
+There are three suggested methods, `SWAP`, `SHRINK`, and `GROWTH`  in [3].
 
-![Swap_Mutation](./resources/image/swap_mutation.png)
+![Mutations](./resources/image/mutation.png)
 
 ### 7. Generational selection strategy.
 
@@ -123,8 +130,29 @@ There are three suggested methods, `SWAP`, `SHRINK`, and `GROWTH`  in [3]. we wi
 
 ## 4. How to run your project.
 
+### Installation
 ```Bash
-TODO
+git clone https://github.com/ctenhank/GA-based-CS-algorithm
+
+# Recommend the usage of virtual environments
+python3 -m venv venv
+source venv/bin/activate
+
+# (venv)
+pip3 install -r requirements.txt
+
+```
+
+### Execution
+```bash
+python3 app.py
+```
+
+There are some options to execute this application, the container scheduling using meta-heuristice algorithm. One of the options is to select a fitness function to evaluate population.
+```bash
+# Select one of fitness function in ['scale', 'balance', 'failure', 'network']
+# The fastest result is `balance` means the balanced cluster usage.
+python3 app.py --fitness {OPTION_FITNESS}
 ```
 
 ## 5. How to adjust parameters.

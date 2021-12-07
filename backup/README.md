@@ -125,7 +125,7 @@ The fitness values is the total cost for allocating the micro-services and conta
 
 $scale_i = |\{cont_k\}|\ cont_k \equiv ms_i\ and\ alloc(ms_i),\ \forall_{ms_i} $ 
 
-***by minimizing***
+***by minimizing one of the below values(you can choose one)***
 
 1. **Theshold Distance** = $\sum_{\forall_{ms_i}}|\frac{msreq_i\times res_i}{scale_i} - thr_i|$
 2. **Balanced Cluster Usage** = $\sigma(PM_{usage}^{pm_l},\ if\ \exists ms_i\ |\ alloc(ms_i) = pm_l)$
@@ -155,7 +155,7 @@ The crossover operator is quite simple method, `single-point crossover` operator
 
 ### 6. Mutation operator.
 
-There are three suggested methods, `SWAP`, `SHRINK`, and `GROWTH`  in [3]. we wil use the `SWAP` mutation which shuffles the array poistions of the microservice array. 
+##### There are three suggested methods, `SWAP`, `SHRINK`, and `GROWTH`  in [3]. we wil use the `SWAP` mutation which shuffles the array poistions of the microservice array. 
 
 ![Swap_Mutation](./resources/image/swap_mutation.png)
 
