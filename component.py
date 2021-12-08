@@ -25,7 +25,7 @@ class MicroService:
     def __init__(self, id: int, scale: int = None):
         self.id = id
         if scale == None:
-            self.scale = rd.randint(1, 10)
+            self.scale = rd.randint(Config.MS_MIN_SCALE, Config.MS_MAX_SCALE)
         else:
             self.scale = scale
         self.cont_list = []

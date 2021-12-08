@@ -11,7 +11,7 @@ class Config:
     RACK_TYPE = [0, 1]
 
     # Execution parameters based on the [3].
-    SIZE_POPULATION: int = 1000
+    SIZE_POPULATION: int = 300
     SIZE_MUTATION: int = int(SIZE_POPULATION/5)
     SIZE_CROSSOVER: int = int(SIZE_POPULATION/5)
 
@@ -19,16 +19,19 @@ class Config:
     PROB_MUTATION_SELECTION: float = 1/3
     PROB_CROSSOVER : float = 1.0
 
-    THR_SCALABILITY: float = 1.0
+    THR_SCALABILITY: float = 0.1
     THR_BALANCE: float = 0.001
-    THR_FAILURE: float = 1e-100
-    THR_NETWORK: float = 1.0
+    THR_FAILURE: float = 1e-20
+    THR_NETWORK: float = 0.1
 
     MAX_GENERATION: int = 300
+
+    APP_REQ = [1.0, 1.5, 2.0]
+    MS_MIN_SCALE = 1
+    MS_MAX_SCALE = 10
     
 
 class SocksShopConfig:
-    APP_REQ = [1.0, 1.5, 2.0]
     MS_MAX_LEN = 14
     MS_NAME = ['worker', 'shipping', 'queue-master', 'payment', 'orders', 'login', 'front-end', 'edge-router', 'catalogue', 'cart', 'accounts', 'weavedb', 'rabbitmq', 'consul']
     MS_REQUEST = [3.2, 1.8, 3.2, 1.4, 2.3, 0.8, 15.1, 15.1, 12.0, 3.2, 0.1, 3.2, 3.2, 3.2]
@@ -39,5 +42,3 @@ class SocksShopConfig:
         set({}), set({13}), set({2, 4}), set({}), set({2,4,10,11,12}), set({}),
         set({5,6,9 }), set({7}), set({}), set({12}), set({12}), set({}), set({1,3}), set({}),
     ]
-    MS_MIN_SCALE = 1
-    MS_MAX_SCALE = 10

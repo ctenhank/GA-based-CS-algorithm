@@ -68,40 +68,40 @@ The chromosome represetation of the above example is the following:
 
 There are two type parameters: `basic parameters`, `application-specific parameters`. The `basic parameters` are genetic-algorithm parameters such as the size of population, crossover, mutation and the thresholds to finish the program. 
 
-**TO BE CONTINUED FROM HERE.**
-
 **Basic Parameters**
 
-* *POPULATION_SIZE=200*
-* *CROSSOVER_SIZE=POPULATION_SIZE/2*
-* *MUTATION_SIZE=POPULATION_SIZE/10*
+* *POPULATION_SIZE=300*
+* *CROSSOVER_SIZE=POPULATION_SIZE/5*
+* *MUTATION_SIZE=POPULATION_SIZE/5*
+* MS_MIN_SCALE = 1
+* MS_MAX_SCALE = 10
+* APP_REQ = [1.0, 1.5, 2.0]
 
 **Application-Specific Parameters**
 
+The application-specific parameters are metrics for each micro-services. In this scripts, we only consider the use case *Sock Shop*[4], one of the most popular demo in cloud system. The specific metric is giveb in [3].
 
-**Parameters for element**
-
-* *MAX_LENGTH_APPLICATIONS=1*
-* *MAX_LENGTH_PHYSICAL_MACHINE=300*
-* *MAX_LENGTH_MICROSERVICES=14*
-* *MAX_LENGTH_CONTAINER=20*
-
-**Parameters for stopping criteria**
-
-* *STOP_MAX_INTERVAL_SOLUTIONS=10*
-* *STOP_MAX_GENERATION=300*
-* *STOP_THRESHOLD={NOT-DETERMINED}*
+* MS_MAX_LEN = 14
+* MS_NAME = ['worker', 'shipping', 'queue-master', 'payment', 'orders', 'login', 'front-end', 'edge-router', 'catalogue', 'cart', 'accounts', 'weavedb', 'rabbitmq', 'consul']
+* MS_REQUEST = [3.2, 1.8, 3.2, 1.4, 2.3, 0.8, 15.1, 15.1, 12.0, 3.2, 0.1, 3.2, 3.2, 3.2]
+* MS_RESOURCE = [0.1, 11.7, 20.0, 0.1, 27.1, 2.8, 3.8, 0.5, 0.2, 41.3, 45.1, 26.3, 4.0, 13.2]
+* MS_THRESHOLD = [1.0, 25.0, 200.0, 10.0, 80.0, 30.0, 50.0, 10.0, 3.0, 100.0, 100.0, 80.0, 40.0, 100.0]
+* MS_FAILURE = [0.04, 0.02, 0.02, 0.0002, 0.02, 0.0001, 0.003, 0.0001, 0.0006, 0.02, 0.003, 0.04, 0.0006, 0.0003]
+* MS_CONSUMER = [
+    {}, {13}, {2, 4}, {}, {2,4,10,11,12}, {}, {5,6,9}, {7}, {}, {12}, {12}, {}, {1,3}, {},
+]
 
 
 ### 2. Stopping criteria.
 
-We will stop this GA(Genetic Algorithm) when a fitness is larger than a given threshold. There are three options as following:
+This algorithm will stop whether when the best-so-far is smaller than a given threshold or the step of algorithm exceeds the given `MAX_GENERATION`. The default configurations are below.
 
-1. The maximum interval of solutions, which is no change in the given value as the parameter `STOP_MAX_INTERVAL_SOLUTIONS`(default: 10)
-2. The fixed number of generations as the parameter `STOP_MAX_GENERATION`(default: 300)
-3. The fitness value exceeds a given threshold as the parameter `STOP_THRESHOLD`(default: *{NOT YET}*)
+* THR_SCALABILITY = 0.1
+* THR_BALANCE = 0.001
+* THR_FAILURE = 1e-20
+* THR_NETWORK = 0.1
+* MAX_GENERATION = 300
 
-*The criteria can be added for handling some errors and infinte loops.*
 
 ### 3. Fitness function.
 
@@ -120,7 +120,7 @@ The crossover operator is quite simple method, `single-point crossover` operator
 
 ### 6. Mutation operator.
 
-There are three suggested methods, `SWAP`, `SHRINK`, and `GROWTH`  in [3].
+This application supports randomly three swap functions for each mutation: `SWAP`, `SHRINK`, and `GROWTH`.
 
 ![Mutations](./resources/image/mutation.png)
 
@@ -157,31 +157,10 @@ python3 app.py --fitness {OPTION_FITNESS}
 
 ## 5. How to adjust parameters.
 
-There are basic parameters such as the following, other parameters can be added later.
-
-* *POPULATION_SIZE*
-* *MUTATION_SIZE*
-* *CROSSOVER_SIZE*
-* *THRESHOLD*
-* *MAX_INTERVAL_SOLUTIONS*
-
-As default, it will be assigned as global variables.
-
-```Bash
-TODO: How to configure these will be added the next week.
-```
-
-## Point-out
-
-* No specific value in the parameter, stopping criteria.
-* No specific fiteness values
-    * Equations
-    * Metrics
-* More clear explainataion
-* Can we merge ms and cont just as ms?
-
+You can configure the parameters in the `config.py`
 
 ## Reference
 [1] Casalicchio, Emiliano. "Container orchestration: A survey." Systems Modeling: Methodologies and Tools (2019): 221-235.  
 [2] Ahmad, Imtiaz, et al. "Container scheduling techniques: A survey and assessment." Journal of King Saud University-Computer and Information Sciences (2021).  
 [3] Guerrero, Carlos, Isaac Lera, and Carlos Juiz. "Genetic algorithm for multi-objective optimization of container allocation in cloud architecture." Journal of Grid Computing 16.1 (2018): 113-135.
+[4] "Sock Shop", https://microservices-demo.github.io/, accessed on 2021-12-08

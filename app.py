@@ -24,15 +24,8 @@ def main():
         num_gen += 1
         scores = []
         d_scores = {}
-
-        if args.debug:
-            print('='*50)
-            print(f'Generation: {num_gen}')
-            st = time.time()
         
         # Part1: Generate the fitness values
-        # TODO: 1. Check whether it is duplicated or not
-        # TODO: 2. Multi-Objective Optimization
         for i in range(Config.SIZE_POPULATION):
             score = Individual.FUNC_FITNESS(pop[i])
             scores.append(score)
@@ -41,20 +34,15 @@ def main():
             if best_so_far > score:
                 improved = True
                 best_so_far = score
-        end = time.time() - st
-
-        if args.debug:
-            print(f'Elapsed Time in Fitness: {end}')
-            st = time.time()
-        else:
-            if improved or initial:
-                initial = False
-                time_diff = time.time() - start
-                print('='*50)
-                print(f'Generation: {num_gen}')
-                print(f'Elapsed Time: {time_diff}')
-                print(f'Best-so-far: {best_so_far}')
-                print('='*50)
+        
+        if improved or initial:
+            initial = False
+            time_diff = time.time() - start
+            print('='*50)
+            print(f'Generation: {num_gen}')
+            print(f'Elapsed Time: {time_diff}')
+            print(f'Best-so-far: {best_so_far}')
+            print('='*50)
 
         # Stopping criteria
         if best_so_far <= Individual.THR_FITNESS or num_gen > Config.MAX_GENERATION:
@@ -100,11 +88,6 @@ def main():
             next_pop.append(offspring2)
 
         
-        if args.debug:
-            end = time.time() - st
-            print(f'Elapsed Time in Total Crossover: {end}')
-            st = time.time()
-
         # Part3: Mutation
         for _ in range(Config.SIZE_MUTATION):
             i = rd.randint(0, len(next_pop) - 1)
@@ -116,11 +99,6 @@ def main():
             mutant.offstring_update(new_ms)
             next_pop.append(mutant)   
 
-        
-        if args.debug:
-            end = time.time() - st
-            print(f'Elapsed Time in Mutation: {end}')         
-            st = time.time()
 
         # Part4: Sorting
         for i in range(Config.SIZE_POPULATION, len(next_pop)):
@@ -132,15 +110,6 @@ def main():
         pop = []
         for i in best:
             pop.append(next_pop[i[0]])
-
-        if args.debug:
-            time_diff = time.time() - start
-            end = time.time() - st
-            print(f'Elapsed Time in Sorting: {end}')
-            
-            print(f'Elapsed Time: {time_diff}')
-            print(f'Best-so-far: {best_so_far}')
-            print('='*50)
 
         
 if __name__ == '__main__':

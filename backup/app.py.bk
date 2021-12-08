@@ -25,10 +25,10 @@ def main():
         scores = []
         d_scores = {}
 
-        if args.debug:
-            print('='*50)
-            print(f'Generation: {num_gen}')
-            st = time.time()
+        #if args.debug:
+        #    print('='*50)
+        #    print(f'Generation: {num_gen}')
+        #    st = time.time()
         
         # Part1: Generate the fitness values
         # TODO: 1. Check whether it is duplicated or not
@@ -41,47 +41,30 @@ def main():
             if best_so_far > score:
                 improved = True
                 best_so_far = score
-        end = time.time() - st
-
-        if args.debug:
-            print(f'Elapsed Time in Fitness: {end}')
-            st = time.time()
-        else:
-            if improved or initial:
-                initial = False
-                time_diff = time.time() - start
-                print('='*50)
-                print(f'Generation: {num_gen}')
-                print(f'Elapsed Time: {time_diff}')
-                print(f'Best-so-far: {best_so_far}')
-                print('='*50)
+        
+        if improved or initial:
+            initial = False
+            time_diff = time.time() - start
+            print('='*50)
+            print(f'Generation: {num_gen}')
+            print(f'Elapsed Time: {time_diff}')
+            print(f'Best-so-far: {best_so_far}')
+            print('='*50)
 
         # Stopping criteria
         if best_so_far <= Individual.THR_FITNESS or num_gen > Config.MAX_GENERATION:
                 print('Finished')
                 break
 
-        # Part3: Crossover
+        # Part2: Crossover
         next_pop = copy.deepcopy(pop)
         fps = FitnessProportionalSelection(pop, scores)
-        # TODO: Check the most time-consuming part in this crossover
-        if args.debug:
-            sel = 0.0
-            cro = 0.0
-            cre_ind = 0.0
             
         for _ in range(Config.SIZE_CROSSOVER):
-            if args.debug:
-                st = time.time()
             # part2-1: selection
             a, b = fps.select()
-            if args.debug:
-                sel += (time.time() - st)
 
             # part2-2: single-point crossover
-            if args.debug:
-                st = time.time()
-
             off1 = []
             off2 = []
             cnt_no_change = 0
@@ -95,24 +78,17 @@ def main():
                 if point == range_ - 1:
                     cnt_no_change += 1
 
-            if args.debug:
-                cro += (time.time() - st)
-
             # part2-3: Remove duplicated case
             if cnt_no_change == SocksShopConfig.MS_MAX_LEN:
                 continue
             
             # part2-4: create new individual and update
-            if args.debug:
-                st = time.time()
 
             # This part is most time-consuming part.
             offspring1 = Individual(derived=True)
             offspring2 = Individual(derived=True)
             offspring1.offstring_update(off1)
             offspring2.offstring_update(off2)
-            if args.debug:
-                cre_ind += (time.time() - st)
 
             # part2-5: update the next population
             next_pop.append(offspring1)
@@ -121,11 +97,7 @@ def main():
         
         if args.debug:
             end = time.time() - st
-            print(f'Elapsed Time in Selection: {sel}')
-            print(f'Elapsed Time in Crossover: {cro}')
-            print(f'Elapsed Time in Creating new individual: {cre_ind}')
             print(f'Elapsed Time in Total Crossover: {end}')
-            
             st = time.time()
 
         # Part3: Mutation
