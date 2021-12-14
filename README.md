@@ -1,23 +1,23 @@
 # GA-based CS Algorithm
 
-This page consists of CS(Container Scheduling) algorithms based on the GA(Genetic Algorithm).
+This page consists of container allocation algorithms based on the GA(Genetic Algorithm).
 
 ## 1. Justification of why you have chosen your topic.
 
-My research topic is related data processing system, especially focusing on stream data. These days, the modern data processing system is based on the distributed system to process big, big, and big data. The most popular and common-used technology is the container which is a lightweight virtualization in providing cloud services. It provides portability, scalability, and flexible deployment. As the usage of these container technologies are rapidly growing, the scheduling is important that set properly an application as a subset of tasks in the distributed system, that consisting inter-connected nodes, to save cost-efficient operations of modern applications. So, it is one of core components in orchestration tool such as Docker SwarmKit, Google Kubernetes, Apache Mesos, and so on.
+My research topic is related data processing system, especially focusing on stream data. These days, the modern data processing system is based on the distributed system to process big, big, and big data. The most popular and common-used technology is the container which is a lightweight virtualization in providing cloud services. It provides portability, scalability, and flexible deployment. As the usage of these container technologies are rapidly growing, the allocation is important that set properly an application as a subset of tasks in the distributed system, that consisting inter-connected nodes, to save cost-efficient operations of modern applications. So, it is one of core components in orchestration tool such as Docker SwarmKit, Google Kubernetes, Apache Mesos, and so on.
 
-The container scheduling algorithms can be classified as the followings:
+The container allocation algorithms can be classified as the followings:
 
 * Mathematical Modeling
 * Heuristics
 * Meta-Heuristics
 * Machine Learning
 
-Each class has different characteristics in terms of quality and performance. ***The container scheduling is a NP-complete problem, so it's the most widely used method to solve optimisation problems using `meta-heuristic` approaches***. The mathematical modeling techniques model the scheduling using Integer Linear Programming formulation, but it's limited for small size problems due to the complexity of computation. And, Machine Learning algorithms are successful because of big data to train the model. But, these algorithms has not been explored fully for container scheduling.
+Each class has different characteristics in terms of quality and performance. ***The container allocation is a NP-complete problem, so it's the most widely used method to solve optimisation problems using `meta-heuristic` approaches***. The mathematical modeling techniques model the allocation using Integer Linear Programming formulation, but it's limited for small size problems due to the complexity of computation. And, Machine Learning algorithms are successful because of big data to train the model. But, these algorithms has not been explored fully for container allocation.
 
 ## 2. What is the topic?
 
-***Container Scheduling*** which allocate tasks in distributed system as containers.
+***Container allocation*** which allocate tasks in distributed system as containers.
 
 ## 3. Design decision explaining why you select:
 
