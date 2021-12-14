@@ -3,7 +3,7 @@ from mutation import Mutation
 from config import *
 import random as rd
 from copy import deepcopy
-from fitness import (threshold_distance, total_network_distance, system_failure, balanced_cluster_use)
+from fitness import (threshold_distance, total_network_distance, system_failure, balanced_cluster_use, weighted_sum)
 
 
 class Application:
@@ -107,7 +107,7 @@ class Individual:
     THR_FITNESS: float
     MUTATION: Mutation
 
-    def __init__(self, mul_obj= False, fn='scale', derived=False):
+    def __init__(self, mul_obj= True, fn='scale', derived=False):
         self._initialize_class(mul_obj, fn)
         self.app = deepcopy(self.APP)
         self.pm = deepcopy(self.PM)
@@ -119,7 +119,7 @@ class Individual:
             self._allocate_cont()
 
     @classmethod
-    def _initialize_class(cls, mul_obj= False, fn='scale'):
+    def _initialize_class(cls, mul_obj= True, fn='scale'):
         if cls.INITIALIZE_CLASS == False:
             cls.INITIALIZE_CLASS = True
             cls.APP = Application()
@@ -132,18 +132,19 @@ class Individual:
             if not mul_obj:
                 if fn == 'scale':
                     cls.FUNC_FITNESS = threshold_distance
-                    cls.THR_FITNESS = Config.THR_SCALABILITY
+                    #cls.THR_FITNESS = Config.THR_WOKRLOAD
                 elif fn == 'balance':
                     cls.FUNC_FITNESS = balanced_cluster_use
-                    cls.THR_FITNESS = Config.THR_BALANCE
+                    #cls.THR_FITNESS = Config.THR_BALANCE
                 elif fn == 'failure':
                     cls.FUNC_FITNESS = system_failure
-                    cls.THR_FITNESS = Config.THR_FAILURE
+                    #cls.THR_FITNESS = Config.THR_FAILURE
                 elif fn == 'network':
                     cls.FUNC_FITNESS = total_network_distance
-                    cls.THR_FITNESS = Config.THR_NETWORK
+                    #cls.THR_FITNESS = Config.THR_NETWORK
             else:
-                raise NotImplementedError('Not Implemented yet.')
+                cls.FUNC_FITNESS = weighted_sum
+                #cls.THR_FITNESS = Config.THR_FITNESS
 
     def offstring_update(self, ms):
         self.ms: List[MicroService] = [ MicroService(id=i, scale=len(ms[i])) for i in range(SocksShopConfig.MS_MAX_LEN) ]

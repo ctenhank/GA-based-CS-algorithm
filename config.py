@@ -19,10 +19,15 @@ class Config:
     PROB_MUTATION_SELECTION: float = 1/3
     PROB_CROSSOVER : float = 1.0
 
-    THR_SCALABILITY: float = 0.1
-    THR_BALANCE: float = 0.001
-    THR_FAILURE: float = 1e-20
-    THR_NETWORK: float = 0.1
+    #WEIGHT_WORKFLOAD: float = 1.0700126186173278
+    #WEIGHT_BALANCE: float = 3829.076062191863
+    #WEIGHT_FAILURE: float = 1708.8470872135106
+    #WEIGHT_NETWORK: float = 15.48341559969746
+
+    WEIGHT_WORKFLOAD: float = 0.35
+    WEIGHT_BALANCE: float = 0.15
+    WEIGHT_FAILURE: float = 0.25
+    WEIGHT_NETWORK: float = 0.25
 
     MAX_GENERATION: int = 300
 

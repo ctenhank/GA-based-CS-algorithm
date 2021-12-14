@@ -57,3 +57,11 @@ def total_network_distance(ind: 'Individual'):
     for i in range(SocksShopConfig.MS_MAX_LEN):
         tot_net_dist += _service_mean_distance(ind, i)
     return tot_net_dist    
+
+def weighted_sum(ind: 'Individual'):
+    workload = Config.WEIGHT_WORKFLOAD * threshold_distance(ind)
+    balance = Config.WEIGHT_BALANCE * balanced_cluster_use(ind)
+    failure = Config.WEIGHT_FAILURE * system_failure(ind)
+    network = Config.WEIGHT_NETWORK * total_network_distance(ind)
+
+    return workload + balance + failure + network

@@ -7,6 +7,8 @@ import copy
 import time
 import argparse
 import random as rd
+
+import pickle as pkl
     
 def main():
     #GMT = datetime.timezone(datetime.timedelta(hours=9))
@@ -18,13 +20,14 @@ def main():
     pop = [ Individual(fn=args.fitness) for _ in range(Config.SIZE_POPULATION) ]
     best_so_far = sys.maxsize
     initial = True
-    
+
     while True:
         improved = False
         num_gen += 1
         scores = []
         d_scores = {}
-        
+
+       
         # Part1: Generate the fitness values
         for i in range(Config.SIZE_POPULATION):
             score = Individual.FUNC_FITNESS(pop[i])
@@ -34,7 +37,7 @@ def main():
             if best_so_far > score:
                 improved = True
                 best_so_far = score
-        
+
         if improved or initial:
             initial = False
             time_diff = time.time() - start
@@ -45,7 +48,7 @@ def main():
             print('='*50)
 
         # Stopping criteria
-        if best_so_far <= Individual.THR_FITNESS or num_gen > Config.MAX_GENERATION:
+        if num_gen > Config.MAX_GENERATION:
                 print('Finished')
                 break
 
@@ -115,7 +118,7 @@ def main():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--debug', action='store_true')
-    parser.add_argument('--fitness', default='scale', help='It must be one of the ["scale", "balance", "failure", "network"]. The default is `scale`')
+    parser.add_argument('--fitness', help='It must be one of the ["scale", "balance", "failure", "network"].')
     args = parser.parse_args()
 
     main()

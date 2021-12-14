@@ -96,17 +96,25 @@ The application-specific parameters are metrics for each micro-services. In this
 
 This algorithm will stop whether when the best-so-far is smaller than a given threshold or the step of algorithm exceeds the given `MAX_GENERATION`. The default configurations are below.
 
-* THR_SCALABILITY = 0.1
-* THR_BALANCE = 0.001
-* THR_FAILURE = 1e-20
-* THR_NETWORK = 0.1
 * MAX_GENERATION = 300
 
 
 ### 3. Fitness function.
 
+***Weighted Sum*** of the following fitness values:
+* Thresholod Distance
+* Balanced Cluster Usage
+* System Failure
+* Total Network Distance
+
+The weight is following
+* WEIGHT_WORKFLOAD: float = 0.35
+* WEIGHT_BALANCE: float = 0.15
+* WEIGHT_FAILURE: float = 0.25
+* WEIGHT_NETWORK: float = 0.25
+
 *It's represented as an image due to unsupporting inline latex in Github. You can check the original text in `backup/README.md.bk` directory and get more clear image when you left-click this image.*
-![Optimisation-Objective](./resources/image/fitness.png)
+##### ![Fitness Function](./resources/image/fitness.png)
 
 ### 4. Selection operator.
 

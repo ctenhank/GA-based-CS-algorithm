@@ -125,7 +125,7 @@ The fitness values is the total cost for allocating the micro-services and conta
 
 $scale_i = |\{cont_k\}|\ cont_k \equiv ms_i\ and\ alloc(ms_i),\ \forall_{ms_i} $ 
 
-***by minimizing one of the below values(you can choose one)***
+***by minimizing weighted sum of the followings:***
 
 1. **Theshold Distance** = $\sum_{\forall_{ms_i}}|\frac{msreq_i\times res_i}{scale_i} - thr_i|$
 2. **Balanced Cluster Usage** = $\sigma(PM_{usage}^{pm_l},\ if\ \exists ms_i\ |\ alloc(ms_i) = pm_l)$
@@ -147,7 +147,7 @@ $\displaystyle\sum_{\forall{cont_k}|alloc(cont_k)=pm_l}res_k<cap_l, \ \forall pm
 
 `Tournament Selection`.
 
-### 5. Crossover operator.
+##### 5. Crossover operator.
 
 The crossover operator is quite simple method, `single-point crossover` operator. Parent can make two children at given single index.
 
